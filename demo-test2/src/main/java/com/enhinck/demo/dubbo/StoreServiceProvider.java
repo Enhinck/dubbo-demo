@@ -1,6 +1,6 @@
 package com.enhinck.demo.dubbo;
 
-import com.enhinck.client.dubbo.IStoreService;
+import com.enhinck.swagger.dubbo.IStoreService;
 import com.enhinck.demo.service.StoreService;
 import io.seata.core.context.RootContext;
 import lombok.extern.slf4j.Slf4j;

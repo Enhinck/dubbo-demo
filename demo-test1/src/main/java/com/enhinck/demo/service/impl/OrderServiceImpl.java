@@ -1,6 +1,6 @@
 package com.enhinck.demo.service.impl;
 
-import com.enhinck.client.dubbo.IStoreService;
+import com.enhinck.swagger.dubbo.IStoreService;
 import com.enhinck.demo.mapper.OrderDO;
 import com.enhinck.demo.mapper.OrderMapper;
 import com.enhinck.demo.service.OrderService;

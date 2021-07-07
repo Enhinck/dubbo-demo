@@ -1,4 +1,4 @@
-package com.enhinck.client.dubbo;
+package com.enhinck.swagger.dubbo;
 
 /**
  * <p>write your description here

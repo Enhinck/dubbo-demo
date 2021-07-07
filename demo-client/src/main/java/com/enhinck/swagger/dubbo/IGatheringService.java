@@ -1,4 +1,4 @@
-package com.enhinck.client.dubbo;
+package com.enhinck.swagger.dubbo;
 
 import io.seata.rm.tcc.api.BusinessActionContext;
 import io.seata.rm.tcc.api.BusinessActionContextParameter;

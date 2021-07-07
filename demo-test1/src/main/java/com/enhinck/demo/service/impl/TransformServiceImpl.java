@@ -1,6 +1,6 @@
 package com.enhinck.demo.service.impl;
 
-import com.enhinck.client.dubbo.IGatheringService;
+import com.enhinck.swagger.dubbo.IGatheringService;
 import com.enhinck.demo.service.PayTccAction;
 import com.enhinck.demo.service.TransformService;
 import io.seata.spring.annotation.GlobalTransactional;

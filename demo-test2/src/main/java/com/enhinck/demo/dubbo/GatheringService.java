@@ -1,6 +1,6 @@
 package com.enhinck.demo.dubbo;
 
-import com.enhinck.client.dubbo.IGatheringService;
+import com.enhinck.swagger.dubbo.IGatheringService;
 import io.seata.rm.tcc.api.BusinessActionContext;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.dubbo.config.annotation.DubboService;
