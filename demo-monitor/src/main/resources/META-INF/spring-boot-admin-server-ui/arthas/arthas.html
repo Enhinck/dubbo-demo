@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html class="no-js">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Spring Boot Admin</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <link rel="shortcut icon" type="image/x-icon" href="/assets/img/icon-spring-boot-admin.svg"/>
+    <link rel="stylesheet" type="text/css" href="/assets/css/sba-core.360886fb.css"/>
+    <link rel="stylesheet" type="text/css" href="/assets/css/chunk-common.9808b72e.css"/>
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/popper-1.14.6.min.js"></script>
+    <script src="js/xterm.js"></script>
+    <script src="js/web-console.js"></script>
+    <script src="js/arthas.js"></script>
+    <link href="js/xterm.css" rel="stylesheet" />
+
+    <script type="text/javascript">
+        window.addEventListener('resize', function () {
+            var terminalSize = getTerminalSize();
+            ws.send(JSON.stringify({ action: 'resize', cols: terminalSize.cols, rows: terminalSize.rows }));
+            xterm.resize(terminalSize.cols, terminalSize.rows);
+        });
+    </script>
+</head>
+
+<body>
+<header class="navbar header--navbar desktop-only">
+    <div class="navbar-inner">
+        <div class="container-fluid">
+
+            <div class="spring-logo--container">
+                <a class="spring-logo" href="#"><span></span></a>
+            </div>
+            <div class="spring-logo--container">
+                <a class="spring-boot-logo" href="#"><span></span></a>
+            </div>
+            <ul class="nav pull-right">
+                <li class="navbar-link ng-scope">
+                    <a  class="ng-binding" href="arthas.html">Arthas</a>
+                </li>
+                <li class="navbar-link ng-scope">
+                    <a  class="ng-binding" href="../">Applications</a>
+                </li>
+                <li class="navbar-link ng-scope">
+                    <a  class="ng-binding" href="../#/events">Journal</a>
+                </li>
+                <li class="navbar-link ng-scope">
+                    <a  class="ng-binding" href="../#/about">About</a>
+                </li>
+                <li class="navbar-link ng-scope">
+                    <a  class="ng-binding" href="../#/logout"><i class="fa fa-2x fa-sign-out" aria-hidden="true"></i></a>
+                </li>
+            </ul>
+
+
+        </div>
+    </div>
+</header>
+
+<div ui-view>
+    <div class="container-fluid">
+        <form class="form-inline">
+            <input type="hidden" id="ip" name="ip" value="127.0.0.1">
+            <input type="hidden" id="port" name="port" value="9898">
+            Select Application：
+            <select id="selectServer"></select>
+            <button class="btn" onclick="startConnect()" type="button"><i class="fa fa-connectdevelop"></i> Connect</button>
+            <button class="btn" onclick="disconnect()" type="button"><i class="fa fa-search-minus"></i> Disconnect</button>
+            <button class="btn" onclick="release()" type="button"><i class="fa fa-search-minus"></i> Release</button>
+        </form>
+        <div id="terminal-card">
+            <div id="terminal"></div>
+        </div>
+
+    </div>
+
+</div>
+
+<!--<footer class="footer">
+    <ul class="inline">
+        <li><a href="https://codecentric.github.io/spring-boot-admin/@project.version@" target="_blank">Reference
+            Guide</a></li>
+        <li>-</li>
+        <li><a href="https://github.com/codecentric/spring-boot-admin" target="_blank">Sources</a></li>
+        <li>-</li>
+        <li>Code licensed under <a href="http://www.apache.org/licenses/LICENSE-2.0" target="_blank">Apache License
+            2.0</a></li>
+    </ul>
+</footer>-->
+
+</body>
+
+</html>

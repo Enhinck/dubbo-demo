@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title></title>
+    <script src="js/jquery-3.3.1.min.js"></script>
+</head>
+<body>
+<table>
+    <tr>
+        <td>服务名:</td>
+        <td><select id="selectServer">
+        </select></td>
+        <td><input type="button" id="getServer" value="刷新服务列表"/></td>
+        <td><input type="button" id="openInNewWindow" value="尝试新窗口打开此服务的druid监控"/></td>
+    </tr>
+</table>
+<iframe id="contentIfr" src="" frameborder="none" scrolling="auto"
+        style="align:center;"></iframe>
+
+</body>
+<script src="js/druid.js"></script>
+</html>

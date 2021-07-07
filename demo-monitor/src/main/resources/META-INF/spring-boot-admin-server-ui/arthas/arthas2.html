@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html class="no-js">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Spring Boot Admin</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <link rel="shortcut icon" type="image/x-icon" href="/assets/img/icon-spring-boot-admin.svg"/>
+    <link rel="stylesheet" type="text/css" href="/assets/css/sba-core.360886fb.css"/>
+    <link rel="stylesheet" type="text/css" href="/assets/css/chunk-common.9808b72e.css"/>
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/popper-1.14.6.min.js"></script>
+    <script src="js/xterm.js"></script>
+    <script src="js/web-console.js"></script>
+    <script src="js/arthas.js"></script>
+    <link href="js/xterm.css" rel="stylesheet"/>
+
+    <script type="text/javascript">
+        window.addEventListener('resize', function () {
+            var terminalSize = getTerminalSize();
+            ws.send(JSON.stringify({ action: 'resize', cols: terminalSize.cols, rows: terminalSize.rows }));
+            xterm.resize(terminalSize.cols, terminalSize.rows);
+        });
+
+    </script>
+</head>
+<body>
+<div id="app">
+    <nav id="navigation" class="navbar is-fixed-top">
+        <div class="container">
+            <div class="navbar-brand">
+                <a href="/#/" class="navbar-item logo is-active">
+                    <img src="/assets/img/icon-spring-boot-admin.svg">
+                    <span>angel-arthas</span></a>
+                <div class="navbar-burger burger">
+                            <span>
+
+                            </span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+            <div class="navbar-menu">
+                <div class="navbar-end">
+                    <a href="/#/wallboard" class="navbar-item">Wallboard</a>
+                    <a href="/#/applications" class="navbar-item router-link-exact-active is-active">
+                                <span><!----><span data-badge="0" class="">
+    Applications
+  </span>
+</span>
+                    </a>
+                    <a href="/#/journal" class="navbar-item">Journal</a>
+                    <a href="/#/about" class="navbar-item">About</a>
+                    <div class="navbar-item has-dropdown is-hoverable">
+                        <a class="navbar-link">
+                            <svg aria-hidden="true" data-prefix="fas" data-icon="user-circle" role="img"
+                                 xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"
+                                 class="svg-inline--fa fa-user-circle fa-w-16 fa-lg">
+                                <path fill="currentColor"
+                                      d="M248 8C111 8 0 119 0 256s111 248 248 248 248-111 248-248S385 8 248 8zm0 96c48.6 0 88 39.4 88 88s-39.4 88-88 88-88-39.4-88-88 39.4-88 88-88zm0 344c-58.7 0-111.3-26.6-146.5-68.2 18.8-35.4 55.6-59.8 98.5-59.8 2.4 0 4.8.4 7.1 1.1 13 4.2 26.6 6.9 40.9 6.9 14.3 0 28-2.7 40.9-6.9 2.3-.7 4.7-1.1 7.1-1.1 42.9 0 79.7 24.4 98.5 59.8C359.3 421.4 306.7 448 248 448z"
+                                      class="">
+
+                                </path>
+                            </svg>&nbsp;<span>admin</span>
+                        </a>
+                        <div class="navbar-dropdown"><a class="navbar-item">
+                            <form action="logout" method="post">
+                                <input type="hidden" name="_csrf" value="eb1c8d4d-a14b-4fc8-ba61-be3e3e710e43">
+                                <button type="submit" value="logout" class="button is-icon">
+                                    <svg aria-hidden="true" data-prefix="fas" data-icon="sign-out-alt" role="img"
+                                         xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"
+                                         class="svg-inline--fa fa-sign-out-alt fa-w-16">
+                                        <path fill="currentColor"
+                                              d="M497 273L329 441c-15 15-41 4.5-41-17v-96H152c-13.3 0-24-10.7-24-24v-96c0-13.3 10.7-24 24-24h136V88c0-21.4 25.9-32 41-17l168 168c9.3 9.4 9.3 24.6 0 34zM192 436v-40c0-6.6-5.4-12-12-12H96c-17.7 0-32-14.3-32-32V160c0-17.7 14.3-32 32-32h84c6.6 0 12-5.4 12-12V76c0-6.6-5.4-12-12-12H96c-53 0-96 43-96 96v192c0 53 43 96 96 96h84c6.6 0 12-5.4 12-12z"
+                                              class=""></path>
+                                    </svg>&nbsp;Log out
+                                </button>
+                            </form>
+                        </a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <section class="section" views="">
+        <form class="application-list__item card">
+            <input type="hidden" id="ip" name="ip" value="127.0.0.1">
+            <input type="hidden" id="port" name="port" value="9898">
+            Select Application：
+            <select id="selectServer" class="select"></select>
+            <button class="button is-primary" onclick="startConnect()" type="button"><svg aria-hidden="true" data-prefix="fas" data-icon="wrench" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="svg-inline--fa fa-wrench fa-w-16"><path fill="currentColor" d="M507.73 109.1c-2.24-9.03-13.54-12.09-20.12-5.51l-74.36 74.36-67.88-11.31-11.31-67.88 74.36-74.36c6.62-6.62 3.43-17.9-5.66-20.16-47.38-11.74-99.55.91-136.58 37.93-39.64 39.64-50.55 97.1-34.05 147.2L18.74 402.76c-24.99 24.99-24.99 65.51 0 90.5 24.99 24.99 65.51 24.99 90.5 0l213.21-213.21c50.12 16.71 107.47 5.68 147.37-34.22 37.07-37.07 49.7-89.32 37.91-136.73zM64 472c-13.25 0-24-10.75-24-24 0-13.26 10.75-24 24-24s24 10.74 24 24c0 13.25-10.75 24-24 24z" class=""></path></svg>
+                Connect</button>
+            <button class="button" onclick="disconnect()" type="button"><svg aria-hidden="true" data-prefix="fas" data-icon="trash" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="svg-inline--fa fa-trash fa-w-14"><path fill="currentColor" d="M0 84V56c0-13.3 10.7-24 24-24h112l9.4-18.7c4-8.2 12.3-13.3 21.4-13.3h114.3c9.1 0 17.4 5.1 21.5 13.3L312 32h112c13.3 0 24 10.7 24 24v28c0 6.6-5.4 12-12 12H12C5.4 96 0 90.6 0 84zm415.2 56.7L394.8 467c-1.6 25.3-22.6 45-47.9 45H101.1c-25.3 0-46.3-19.7-47.9-45L32.8 140.7c-.4-6.9 5.1-12.7 12-12.7h358.5c6.8 0 12.3 5.8 11.9 12.7z" class=""></path></svg>
+                Disconnect</button>
+            <button class="button" onclick="release()" type="button"><svg aria-hidden="true" data-prefix="fas" data-icon="sign-out-alt" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="svg-inline--fa fa-sign-out-alt fa-w-16"><path fill="currentColor" d="M497 273L329 441c-15 15-41 4.5-41-17v-96H152c-13.3 0-24-10.7-24-24v-96c0-13.3 10.7-24 24-24h136V88c0-21.4 25.9-32 41-17l168 168c9.3 9.4 9.3 24.6 0 34zM192 436v-40c0-6.6-5.4-12-12-12H96c-17.7 0-32-14.3-32-32V160c0-17.7 14.3-32 32-32h84c6.6 0 12-5.4 12-12V76c0-6.6-5.4-12-12-12H96c-53 0-96 43-96 96v192c0 53 43 96 96 96h84c6.6 0 12-5.4 12-12z" class=""></path></svg>
+                Release</button>
+        </form>
+      <div id="terminal-card">
+        <div id="terminal"></div>
+      </div>
+    </section>
+</div>
+<script>
+
+</script>
+</html>

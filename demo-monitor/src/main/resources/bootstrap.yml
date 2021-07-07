@@ -1,0 +1,68 @@
+server:
+  port: 8765
+# arthas端口
+arthas:
+  server:
+    port: 9898
+spring:
+  application:
+    name: demo-monitor
+  profiles:
+    active: local
+  boot:
+    admin:
+      ui:
+        # 修改网页显示的tab标题
+        title: "demo应用监控管理"
+        # 修改网页的brand的图标和标题
+        brand: "<img src='assets/img/icon-spring-boot-admin.svg'><span>demo应用监控管理</span>"
+        external-views:
+        - label: "Arthas Console"
+          url: /arthas/arthas2.html
+          order: 1900
+    discovery:
+      instances-metadata:
+        sba-register: true
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+    logfile:
+      external-file:  ${user.home}/logs/${spring.application.name}.log
+
+logging:
+  config: classpath:logback-spring.xml
+  path: ${user.home}/logs/${spring.application.name}
+
+#本地环境配置
+---
+spring:
+  profiles: local
+  cloud:
+    nacos:
+      config:
+        enabled: false
+#开发环境配置
+---
+spring:
+  profiles: dev
+  security:
+    user:
+      name: admin
+      password: admin
+  cloud:
+    zookeeper:
+      connect-string: 127.0.0.1:2181
+    nacos:
+      config:
+        server-addr: ${NACOS_HOST:127.0.0.1}:${NACOS_PORT:8848}
+        file-extension: yml
+        shared-dataids: application.yml,admin.yml
+        refreshable-dataids: application.yml
+        namespace: ${spring.profiles.active}
+
+
+
+
+

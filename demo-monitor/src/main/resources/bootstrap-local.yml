@@ -1,0 +1,19 @@
+spring:
+  security:
+    user:
+      name: admin
+      password: admin
+  cloud:
+    zookeeper:
+      connect-string: 127.0.0.1:2181
+  boot:
+    admin:
+      client:
+        url: http://127.0.0.1:8765
+        username: admin
+        password: admin
+
+
+
+
+
