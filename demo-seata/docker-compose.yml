@@ -1,0 +1,10 @@
+version: "3"
+services:
+  seata-server:
+    build: .
+    hostname: 127.0.0.1
+    environment:
+      - SEATA_PORT=8091
+    privileged: true
+    ports:
+      - 8091:8091

@@ -1,0 +1,56 @@
+server:
+  port: 8082
+spring:
+  application:
+    name: demo-test2
+  profiles:
+    active: local
+  datasource:
+    name: demo
+    url: jdbc:mysql://127.0.0.1:3306/demo?serverTimezone=UTC&useSSL=false&autoReconnect=true&useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull
+    username: root
+    password: mysql
+    driver-class-name: com.mysql.cj.jdbc.Driver
+logging:
+  config: classpath:logback-spring.xml
+  path: ${user.home}/logs/${spring.application.name}
+
+dubbo:
+  application:
+    name: ${spring.application.name}  #dubbo的注册的服务名, 唯一性
+  registry:
+    #注册zookeeper的地址
+    address: 127.0.0.1:2181
+    port: 2181
+    protocol: zookeeper
+    check: false
+  protocol:
+    name: dubbo
+    port: 20882
+  monitor:
+    protocol: register
+  consumer:
+    check: false
+    timeout: 3000
+  provider:
+    filter: exception
+seata:
+  enabled: true
+  enable-auto-data-source-proxy: true
+  tx-service-group: demo_tx_group
+  registry:
+    type: ZK
+    zk:
+      serverAddr: ${dubbo.registry.address}
+      session-timeout: 6000
+      connect-timeout: 2000
+      username: ""
+      password: ""
+  service:
+    vgroup-mapping:
+      demo_tx_group: default
+    disable-global-transaction: false
+  client:
+    rm:
+      report-success-enable: false
+

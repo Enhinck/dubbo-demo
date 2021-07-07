@@ -1,0 +1,9 @@
+在开始之前
+先修改部分配置
+docker-compose.yml
+
+mysql.volumes   - /Users/xiaomi/mysql/data:/var/lib/mysql
+/Users/xiaomi/mysql/data 修改为你本机的数据库实例存储位置
+
+启动基础环境
+docker-compose up -d

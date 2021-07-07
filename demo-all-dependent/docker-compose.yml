@@ -1,0 +1,24 @@
+version: '2'
+services:
+  mysql57:
+    container_name: mysql57
+    build: ./mysql
+    volumes:
+      # mysql 的数据的主机存储路径
+      - /Users/xiaomi/mysql/data:/var/lib/mysql
+      - ./mysql/init:/docker-entrypoint-initdb.d/
+      - ./mysql/sql:/opt/sql
+    environment:
+      - MYSQL_ROOT_PASSWORD=mysql
+    restart: always
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    ports:
+      - 3306:3306
+  zookeeper3:
+    image: zookeeper:3.4.13
+    restart: always
+    container_name: zookeeper3
+    environment:
+      ZOO_PORT: 2181
+    ports:
+      - 2181:2181
