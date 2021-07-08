@@ -1,6 +1,6 @@
 
 
-package com.tuya.angel;
+package com.enhinck.demo;
 
 import com.enhinck.monitor.MonitorApplication;
 import org.junit.runner.RunWith;
