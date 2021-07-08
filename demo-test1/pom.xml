@@ -49,16 +49,7 @@
             <artifactId>demo-swagger</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
-        <!--定制 arthas 不随项目启动而启动-->
-        <dependency>
-            <groupId>com.taobao.arthas</groupId>
-            <artifactId>arthas-spring-boot-starter</artifactId>
-            <version>3.4.1.2</version>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/lib/arthas-spring-boot-starter-3.4.1.2.jar</systemPath>
-            <type>jar</type>
-            <optional>true</optional>
-        </dependency>
+
         <dependency>
             <groupId>com.enhinck.dubbo</groupId>
             <artifactId>demo-dubbo</artifactId>
@@ -83,6 +74,17 @@
             <groupId>com.enhinck.dubbo</groupId>
             <artifactId>demo-arthas</artifactId>
             <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+        <!--定制 arthas 不随项目启动而启动-->
+        <dependency>
+            <groupId>com.taobao.arthas</groupId>
+            <artifactId>arthas-spring-boot-starter</artifactId>
+            <version>3.4.1.2</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/arthas-spring-boot-starter-3.4.1.2.jar</systemPath>
+            <type>jar</type>
+            <optional>true</optional>
         </dependency>
     </dependencies>
 
