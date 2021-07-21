@@ -1,0 +1,41 @@
+server:
+  port: 8083
+spring:
+  application:
+    name: demo-test3
+  profiles:
+    active: dev
+  datasource:
+    name: demo
+    url: jdbc:mysql://127.0.0.1:3306/demo?serverTimezone=UTC&useSSL=false&autoReconnect=true&useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull
+    username: root
+    password: mysql
+    driver-class-name: com.mysql.cj.jdbc.Driver
+logging:
+  config: classpath:logback-spring.xml
+  path: ${user.home}/logs/${spring.application.name}
+  level:
+    # 禁止打印nacos配置文件内容到控制台
+    com.alibaba.cloud.nacos.client.NacosPropertySourceBuilder: warn
+
+
+#本地环境配置
+---
+spring:
+  profiles: local
+  cloud:
+    nacos:
+      config:
+        enabled: false
+#开发环境配置
+---
+spring:
+  profiles: dev
+  cloud:
+    nacos:
+      config:
+        server-addr: ${NACOS_HOST:127.0.0.1}:${NACOS_PORT:8848}
+        file-extension: yml
+        shared-dataids: application.yml,dubbo.yml,admin.yml
+        refreshable-dataids: application.yml,dubbo.yml
+        namespace: ${spring.profiles.active}

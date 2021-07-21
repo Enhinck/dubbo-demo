@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration debug="false">
+    <springProperty scope="context" name="loggingRoot" source="logging.path"/>
+
+    <springProperty scope="context" name="appName" source="spring.application.name"/>
+
+
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <layout class="org.apache.skywalking.apm.toolkit.log.logback.v1.x.TraceIdPatternLogbackLayout">
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS}, %tid, %p, %c{5}, %L, %M %m%n</pattern>
+        </layout>
+    </appender>
+
+    <appender name="allFile"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${loggingRoot}/spring.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>${loggingRoot}/spring_%d{yyyy-MM-dd}.%i.log
+            </FileNamePattern>
+            <MaxHistory>15</MaxHistory>
+            <timeBasedFileNamingAndTriggeringPolicy
+                    class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>10MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+        <encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
+            <layout class="org.apache.skywalking.apm.toolkit.log.logback.v1.x.TraceIdPatternLogbackLayout">
+                <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS},  %tid, %p, %c{5}, %L, %M %m%n</pattern>
+            </layout>
+        </encoder>
+    </appender>
+
+
+
+    <root>
+        <level value="INFO"/>
+        <appender-ref ref="CONSOLE"/>
+    </root>
+
+</configuration>

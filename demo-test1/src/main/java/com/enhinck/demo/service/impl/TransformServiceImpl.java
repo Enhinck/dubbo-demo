@@ -18,7 +18,7 @@ import org.springframework.stereotype.Service;
 public class TransformServiceImpl implements TransformService {
     @Autowired
     PayTccAction payTccAction;
-    @DubboReference
+    @DubboReference(loadbalance = "router")
     IGatheringService gatheringTccAction;
     @Override
     @GlobalTransactional

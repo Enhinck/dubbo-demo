@@ -1,0 +1,62 @@
+dubbo:
+  application:
+    name: ${spring.application.name}  #dubbo的注册的服务名, 唯一性
+  registry:
+    #注册zookeeper的地址
+    address: 127.0.0.1:2181
+    port: 2181
+    protocol: zookeeper
+    check: false
+  protocol:
+    name: dubbo
+    port: 20882
+  monitor:
+    protocol: register
+  consumer:
+    check: false
+    timeout: 3000
+  provider:
+    filter: exception
+
+seata:
+  enabled: true
+  enable-auto-data-source-proxy: true
+  tx-service-group: demo_tx_group
+  registry:
+    type: ZK
+    zk:
+      serverAddr: ${dubbo.registry.address}
+      session-timeout: 6000
+      connect-timeout: 2000
+      username: ""
+      password: ""
+  service:
+    vgroup-mapping:
+      demo_tx_group: default
+    disable-global-transaction: false
+  client:
+    rm:
+      report-success-enable: false
+
+spring:
+  boot:
+    admin:
+      client:
+        url: http://127.0.0.1:8765
+        username: admin
+        password: admin
+management:
+  health:
+    mail:
+      enabled: false
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+arthas:
+  tunnel-server: ws://127.0.0.1:9898/ws
+  agent-id: ${spring.application.name}@${random.value}
+
+
+
+
