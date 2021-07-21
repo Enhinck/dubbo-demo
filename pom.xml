@@ -28,6 +28,7 @@
         <module>demo-client</module>
         <module>demo-test1</module>
         <module>demo-test2</module>
+        <module>demo-test3</module>
         <module>nacos</module>
         <module>demo-monitor</module>
     </modules>
